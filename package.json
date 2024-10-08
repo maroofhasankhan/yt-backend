@@ -1,18 +1,21 @@
 {
   "name": "yt-backend",
   "version": "1.0.0",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev":"nodemon src/index.js"
+    "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js"
   },
   "author": "maroof",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "prettier": "^3.3.3"
   },
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "mongoose": "^8.7.0"
   }
->>>>>>> d1f27a5 (folder created)
 }
