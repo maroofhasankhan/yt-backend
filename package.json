@@ -1,15 +1,6 @@
 {
   "name": "yt-backend",
   "version": "1.0.0",
-  "main": "index.js",
-<<<<<<< HEAD
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "maroof",
-  "license": "ISC",
-  "description": ""
-=======
   "type": "module",
   "scripts": {
     "dev":"nodemon src/index.js"
