@@ -10,12 +10,23 @@
 //     }
 // }
 
-export {asyncHandler};
 
 
-const asyncHandler =(requestHandler)=>{
-    (req, res, next)=>{
-        Promise.resolve()
-        .catch((err)=>next(err))
-    }
-}
+
+// export const asyncHandler =(requestHandler)=>{
+//     return (req, res, next)=>{
+//         Promise.resolve()
+//         .catch((err)=>next(err))
+//     }
+// }
+
+export const asyncHandler = (requestHandler) => {
+    return (req, res, next) => {
+        Promise.resolve(requestHandler(req, res, next))
+            .catch((err) => next(err)); // Catch any errors and pass them to next()
+    };
+};
+
+// module.exports={
+//     asyncHandler
+// }
