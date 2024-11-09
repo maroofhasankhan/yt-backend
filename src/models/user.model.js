@@ -45,13 +45,13 @@ const userSchema = new Schema({
     type: String,
   }
 },
-{timestamp: true});
+{timestamps: true});
 
 
 // hashing the password before saving it to the database
-userSchema.pre("save",async function(req,res,next){
+userSchema.pre("save",async function(next){
     if(!this.isModified("password")) return next();
-    this.password = bcrypt.hash(this.password, 10)
+    this.password = await bcrypt.hash(this.password, 10)
     next()
 })
 
