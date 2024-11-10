@@ -57,11 +57,11 @@ userSchema.pre("save",async function(next){
 
 
 // matching the hash pass enterd by the user with database password
-userSchema.method.isPasswordCorrect = async function(password) {
+userSchema.methods.isPasswordCorrect = async function(password) {
     return await bcrypt.compare(password, this.password)
 }
 
-userSchema.method.generateAccessToken = async function(){
+userSchema.methods.generateAccessToken = async function(){
     return jwt.sign({
         _id:this._id,
         email:this.email,
@@ -74,7 +74,7 @@ userSchema.method.generateAccessToken = async function(){
      }
     )
 }
-userSchema.method.generateRefreshToken = async function(){
+userSchema.methods.generateRefreshToken = async function(){
     return jwt.sign({
         _id:this._id,
      },
