@@ -274,6 +274,8 @@ const updateAccount = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, user, "Account details updated"));
 })
 
+
+
 const updateUserAvatar = asyncHandler(async (req, res) => {
     //get user from req.user
     //check if avatar is present
