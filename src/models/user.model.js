@@ -1,9 +1,10 @@
+// Import required dependencies
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 import jwt  from "jsonwebtoken";
 
 
-
+// Define the user schema with required fields and validation
 const userSchema = new Schema({
   username: {
     type: String,
@@ -11,7 +12,7 @@ const userSchema = new Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    index: true,
+    index: true, // Index this field for faster queries
   },
   email: {
     type: String,
@@ -34,7 +35,7 @@ const userSchema = new Schema({
   watchHistory: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Video",
+      ref: "Video", // Reference to Video model
     },
   ],
   password: {
@@ -45,22 +46,25 @@ const userSchema = new Schema({
     type: String,
   }
 },
-{timestamps: true});
+{timestamps: true}); // Add automatic timestamp fields (createdAt, updatedAt)
 
 
-// hashing the password before saving it to the database
+// Middleware: Hash password before saving to database
 userSchema.pre("save",async function(next){
+    // Only hash if password is modified
     if(!this.isModified("password")) return next();
+    // Hash password with bcrypt using salt rounds of 10
     this.password = await bcrypt.hash(this.password, 10)
     next()
 })
 
 
-// matching the hash pass enterd by the user with database password
+// Method to verify if provided password matches stored hash
 userSchema.methods.isPasswordCorrect = async function(password) {
     return await bcrypt.compare(password, this.password)
 }
 
+// Method to generate JWT access token containing user details
 userSchema.methods.generateAccessToken = async function(){
     return jwt.sign({
         _id:this._id,
@@ -74,6 +78,8 @@ userSchema.methods.generateAccessToken = async function(){
      }
     )
 }
+
+// Method to generate JWT refresh token containing only user ID
 userSchema.methods.generateRefreshToken = async function(){
     return jwt.sign({
         _id:this._id,
@@ -85,5 +91,5 @@ userSchema.methods.generateRefreshToken = async function(){
     )
 }
 
+// Create and export User model
 export const User = mongoose.model("User", userSchema);
-

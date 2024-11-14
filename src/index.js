@@ -7,6 +7,7 @@ dotenv.config({
     path: './env'
 })
 
+
 connectDB()
 .then(()=>{
     app.on('error',(error)=>{
@@ -20,11 +21,6 @@ connectDB()
 .catch((error)=>{
     console.error('Failed to connect to MongoDB',error.message);
 })
-
-
-
-
-
 
 
 
